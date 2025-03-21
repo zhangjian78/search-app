@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Search+ Toolbar</string>
+    <string name="channel_name">channel_name</string>
+    <string name="channel_description">channel_description</string>
+    <string name="text_show_notif">Testing Notif With Reply</string>
+    <string name="notif_action_reply">Reply Notif</string>
+    <string name="notif_title">New Notification</string>
+    <string name="notif_content">Ada notif baru</string>
+    <string name="notif_title_sent">Reply Sent</string>
+    <string name="notif_content_sent">Message has been sent</string>
+    <string name="hint_reply">Masukkan reply</string>
+    <!-- com.ihanghai.googlesearchWithoutTextInput -->
+    <!-- checked: 2022.12.07 -->
+    <string name="flurry_id">F2W5F4XM25G72PDKRF7X</string>
+</resources>

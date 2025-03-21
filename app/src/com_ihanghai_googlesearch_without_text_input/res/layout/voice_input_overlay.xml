@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:layout_gravity="top"
+    android:visibility="gone"
+    android:gravity="center_vertical"
+    android:layout_marginTop="48dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/pun_yeta"
+    android:orientation="horizontal"
+    android:id="@+id/voice_input_overlay">
+
+    <EditText
+        android:id="@+id/voice_input_text_field"
+        android:layout_marginStart="44dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:drawablePadding="10dp"
+        android:focusable="false"
+        android:cursorVisible="false"
+        android:hint="Listening(US English only)..." />
+
+    <Button
+        android:id="@+id/voice_input_done_btn"
+        android:layout_width="80dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:background="@color/amzYellow_D4"
+        android:layout_height="wrap_content"
+        android:text="Done" />
+
+</LinearLayout>

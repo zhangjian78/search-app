@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close_popup_window">Close Popup Window</string>
+
+
+
+
+    <string name="flurry_id"> </string>
+    <string name="exit_info">Do you want to close the app</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>

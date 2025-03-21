@@ -1,0 +1,201 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'idea'
+    id 'com.google.gms.google-services'
+    id 'applovin-quality-service'
+}
+
+applovin {
+    apiKey "imypa17y6IRxEDfPA2aPq_2O9tKmZVOd63hhxMVHot68u9RNrELIxKVAKNoFkatTs4vVcC9qNAz1SLg7dTmd7Q"
+}
+
+android {
+
+    namespace "jerry.gadgets"
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    defaultConfig {
+        minSdkVersion 22
+        //
+        //If targetSdkVersion > 30, PackageInfo.getPackageInfo() will only return filtered apps,
+        //which is not desired. If targetSdkVersion >= 31 is needed(for Google Play), then define
+        //its own targetSdkVersion in the flavor part.
+        //
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 35
+        compileSdk 35
+        // 18+YY+MM+DD+HH
+        versionCode 1823031891
+        versionName "2.22.18.91"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        setProperty("archivesBaseName", "v$versionName")
+
+        buildConfigField 'String', 'BUILD_TIME', 'new java.text.SimpleDateFormat("MM.dd.yy HH:mm", java.util.Locale.getDefault()).format(new java.util.Date(' + System.currentTimeMillis() + 'L))'
+    }
+
+    signingConfigs {
+        kidsTube_release {
+            storeFile file('../kidstube-upload.keystore')
+            storePassword 'hanghaijia123456'
+            keyAlias 'upload'
+            keyPassword 'hanghaijia123456'
+        }
+        westlinkin {
+            storeFile file('../westlinkin.keystore')
+            storePassword 'linkin890201'
+            keyAlias 'westlinkin'
+            keyPassword 'linkin890201'
+        }
+    }
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    flavorDimensions "personality", "android_vendor"
+    productFlavors {
+        _addon_amazon_app_store {
+            dimension "android_vendor"
+        }
+
+        // Search+ Toolbar
+        com_ihanghai_googlesearch_without_text_input {
+            dimension "personality"
+            applicationId "com.ihanghai.googlesearchWithoutTextInput"
+        }
+    }
+
+    sourceSets {
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig null//or the following config will not work.
+
+            productFlavors.com_ihanghai_googlesearch_without_text_input.signingConfig signingConfigs.westlinkin
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            signingConfig null//or the following config will not work.
+
+            productFlavors.com_ihanghai_googlesearch_without_text_input.signingConfig signingConfigs.westlinkin
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // https://blog.csdn.net/weixin_54305517/article/details/121583540
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            // Fix final APK naming.
+            output.outputFileName = "${output.outputFileName}".replaceAll("-_", "-")
+            //println(output)
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
+    implementation 'androidx.activity:activity-ktx:1.10.1'
+
+    //using latest 1.x.x, 2.x is not compatible
+    //noinspection GradleDependency
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+
+    compileOnly files('../libs/amazon-device-messaging-1.1.0.jar')
+    compileOnly files('../libs/YouTubeAndroidPlayerApi.jar')
+
+    // Kotlin & Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
+    implementation 'androidx.webkit:webkit:1.13.0'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.nambimobile.widgets:expandable-fab:1.2.1'
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2-ktx'
+    implementation 'com.github.happysingh23828:HappyTimer:1.0.1'
+    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation "com.github.tonyofrancis.Fetch:fetch2:3.3.0"
+//    implementation "androidx.tonyodev.fetch2okhttp:xfetch2okhttp:3.1.6"
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
+//    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
+    implementation 'com.amazon.device:amazon-appstore-sdk:3.0.6'
+    implementation 'com.auth0.android:jwtdecode:2.0.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.19"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev20210915-1.32.1'
+    implementation 'com.google.api-client:google-api-client-android:1.23.0'
+    implementation 'com.google.http-client:google-http-client-gson:1.42.3'
+    implementation 'com.unity3d.ads:unity-ads:4.13.2'
+    implementation 'com.chartboost:chartboost-sdk:9.7.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    implementation 'com.facebook.android:facebook-android-sdk:18.0.2'
+    implementation "com.google.android.gms:play-services-ads:23.3.0"
+
+    implementation("androidx.lifecycle:lifecycle-process:2.8.7")
+
+    implementation platform('com.google.firebase:firebase-bom:33.11.0')
+    implementation("com.google.firebase:firebase-database-ktx:21.0.0") // Realtime Database
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.applovin:applovin-sdk:13.1.0' // AppLovin SDK
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.2.0'
+
+    com_ihanghai_googlesearch_without_text_inputImplementation project(":vosk-models")
+    com_ihanghai_googlesearch_without_text_inputImplementation 'com.alphacephei:vosk-android:0.3.32'
+    com_ihanghai_googlesearch_without_text_inputImplementation 'net.java.dev.jna:jna:5.8.0@aar'
+}
+
+configurations.all {
+    exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+}
+
+repositories {
+    google()
+}

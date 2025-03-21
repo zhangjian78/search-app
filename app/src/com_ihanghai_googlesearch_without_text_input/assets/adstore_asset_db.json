@@ -1,0 +1,24 @@
+{
+  "ts": 1640595689000,
+  "adEntries": [
+    {
+      "adItemId": "fs_ad_onetube_221209_01",
+      "mediaType": "IMAGE",
+      "adTitle": "Download Now",
+      "maxDisplay": 3,
+      "targetPkgId": "com.vtube.protube",
+      "metaMapJson": "{}",
+      "assetUrl": "fs_ad_onetube_02.jpg",
+      "adActionUrl": "amzn://apps/android?p=com.vtube.protube",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    }
+  ]
+}

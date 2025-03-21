@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Default Home</title>
+    <style>
+        html, body {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        img {
+          border-radius: 10%;
+        }
+
+        .main_container {
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            height: 40%;
+            width: 100%;
+        }
+
+        .bottom_container {
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 10px;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 60%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo_container {
+          display: block;
+          align-items: center;
+        }
+
+
+        .search_container {
+            display: flex;
+            width: 70%;
+            align-self: center;
+            margin: 20px;
+        }
+
+        .hint_color {
+            color: #999999;
+        }
+
+        .footer {
+            text-align: center;
+            align-content: center;
+            position: fixed;
+            color: #666666;
+            bottom: 0;
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: small;
+            font-weight: 100;
+            padding: 10px;
+        }
+
+        .topper {
+            text-align: center;
+            align-content: center;
+            position: fixed;
+            color: #666666;
+            top: 0;
+            width: 90%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+        }
+
+        .link_class {
+            width:100%;
+            margin: 4px;
+            height:100%;
+            text-decoration: none;
+            text-align: center;
+
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 25px grey, 0 0 5px darkgrey;
+            font-size: normal;
+            font-weight: 600;
+        }
+
+        .input_style {
+          /* background-color:#3B5998; */
+          height:32px;
+          border-radius:40px;
+          background:#efefef;
+          border:solid 1px #ccc;
+          padding: 10px 8px 10px 8px;
+          outline:none;
+          color:#333;
+          text-align: center;
+          font-size:1.2em;
+          width: 100%;
+          /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+          transition:.3s;
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+
+      @media (orientation: landscape) {
+        .logo_container {
+          top: 15px;
+        }
+
+        .icon_container {
+          top: 110px;
+        }
+      }
+
+      @media (orientation: portrait) {
+        .logo_container {
+          top: 180px;
+        }
+
+        .icon_container {
+          top: 300px;
+        }
+      }
+
+      label {
+    display: block;
+    height: 24px;
+    width: 50px;
+    border-radius: 1em;
+    border: 0.1px solid gainsboro;
+    transition: background-color 1s;
+    box-shadow: 0px 0px 2px #888888 inset;
+}
+
+#turn {
+    display: none;
+}
+
+label::before {
+    content: "";
+    display: block;
+    border-radius: 100%;
+    margin-top: 2px;
+    margin-left: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: #b4b0b0;
+    transition: margin 0.3s;
+}
+
+#turn:checked+label::before {
+    margin-left: 28px;
+    background-color: white;
+    box-shadow: 1px 1px 10px #888888;
+}
+
+#turn:checked+label {
+    background-color: #4BE369;
+}
+
+
+    </style>
+    <script>
+      function validURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)');
+        if (pattern.test(str)) {
+          return true;
+        }
+
+        var arr = str.split('.');
+        if (arr.length == 2 || arr.length == 3) { //baidu.com or www.baidu.com
+          var last = arr[arr.length - 1];
+          if (['com', 'gov', 'me', 'cn', 'cc'].indexOf(last) > -1) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      function setSearchQuery(queryText) {
+          document.getElementById("text").value = queryText;
+      }
+
+      function doSearch() {
+          var text = document.getElementById("text").value.trim();
+          if (text == '') {
+            return;
+          }
+
+          var queryString = text;
+          queryString = `https://www.google.com/search?q=${encodeURIComponent(text)}`;
+          androidCtx.wvJsLog("url: " + queryString);
+
+          window.location.href = queryString;
+      }
+
+      function search() {
+        if(event.keyCode == 13) {
+          doSearch();
+        }
+      }
+
+      function onChange(obj) {
+        if (!window.androidCtx) {
+            return;
+        }
+        if(obj.checked){
+            window.androidCtx.toggleNotification(true);
+        }else{
+            window.androidCtx.toggleNotification(false);
+        }
+      }
+
+      function activateVoiceInput() {
+        console.log("tv version, no voice input.");
+      }
+
+    </script>
+</head>
+<body>
+<div class="main_container">
+    <div class="logo_container">
+        <img src="images/launcher_tv.png" style="width: 80px;height: 80px;" onclick="activateVoiceInput();">
+    </div>
+
+    <div class="search_container">
+        <input type="text" class="input_style" id="text" placeholder="Search Keyword" maxlength="1000" onkeydown="search()"/>
+    </div>
+    <div class="hint_color">press "MENU" switch "Mouse Cursor"</div>
+</div>
+<div class="bottom_container">
+    <img src="images/airplay.png" style="width: 208px;height: 160x;border-radius: 0" onclick="window.androidCtx.openOurApps('1Cast');">
+    <img src="images/onetube.png" style="width: 208px;height: 160px;border-radius: 0" onclick="window.androidCtx.openOurApps('OneTube');">
+</div>
+</body>
+
+</html>

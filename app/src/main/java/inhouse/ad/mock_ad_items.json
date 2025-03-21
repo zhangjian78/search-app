@@ -1,0 +1,175 @@
+{
+  "ts": 1640595689943,
+  "adEntries": [
+    {
+      "adItemId": "mock_ad_1",
+      "mediaType": "VIDEO",
+      "adTitle": "mock_ad_1_StoreDeepLink_VIDEO",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dsr15f7k4jp2t.cloudfront.net/video_ad_1.mp4",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+1",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_2",
+      "mediaType": "HTML",
+      "adTitle": "mock_ad_2_WebLink_HTML",
+      "metaMapJson": "{}",
+      "assetUrl": "https://google.com/search?q\u003dGame+2",
+      "adActionUrl": "https://google.com/search?q\u003dGame+2",
+      "adAction": "WebLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_3",
+      "mediaType": "IMAGE",
+      "adTitle": "mock_ad_3_StoreDeepLink_IMAGE",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dummyimage.com/800x480/e31e25/ffffff\u0026text\u003dmock_ad_item_3",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+3",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_4",
+      "mediaType": "VIDEO",
+      "adTitle": "mock_ad_4_StoreDeepLink_VIDEO",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dsr15f7k4jp2t.cloudfront.net/video_ad_4.mp4",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+4",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_5",
+      "mediaType": "HTML",
+      "adTitle": "mock_ad_5_WebLink_HTML",
+      "metaMapJson": "{}",
+      "assetUrl": "https://google.com/search?q\u003dGame+5",
+      "adActionUrl": "https://google.com/search?q\u003dGame+5",
+      "adAction": "WebLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_6",
+      "mediaType": "IMAGE",
+      "adTitle": "mock_ad_6_StoreDeepLink_IMAGE",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dummyimage.com/800x480/e31e25/ffffff\u0026text\u003dmock_ad_item_6",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+6",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_7",
+      "mediaType": "VIDEO",
+      "adTitle": "mock_ad_7_StoreDeepLink_VIDEO",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dsr15f7k4jp2t.cloudfront.net/video_ad_7.mp4",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+7",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_8",
+      "mediaType": "HTML",
+      "adTitle": "mock_ad_8_WebLink_HTML",
+      "metaMapJson": "{}",
+      "assetUrl": "https://google.com/search?q\u003dGame+8",
+      "adActionUrl": "https://google.com/search?q\u003dGame+8",
+      "adAction": "WebLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_9",
+      "mediaType": "IMAGE",
+      "adTitle": "mock_ad_9_StoreDeepLink_IMAGE",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dummyimage.com/800x480/e31e25/ffffff\u0026text\u003dmock_ad_item_9",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+9",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    },
+    {
+      "adItemId": "mock_ad_10",
+      "mediaType": "VIDEO",
+      "adTitle": "mock_ad_10_StoreDeepLink_VIDEO",
+      "metaMapJson": "{}",
+      "assetUrl": "https://dsr15f7k4jp2t.cloudfront.net/video_ad_10.mp4",
+      "adActionUrl": "amzn://apps/android?s\u003dGame+10",
+      "adAction": "StoreDeepLink",
+      "blacklistRule": {
+        "versionString": "",
+        "versionCode": "",
+        "deviceModel": "",
+        "deviceName": "",
+        "deviceProduct": "",
+        "systemVersion": ""
+      }
+    }
+  ]
+}

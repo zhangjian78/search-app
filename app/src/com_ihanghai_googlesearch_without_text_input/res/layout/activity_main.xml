@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <include layout="@layout/main_wv_and_accessories_merge" />
+        </FrameLayout>
+
+        <com.applovin.mediation.ads.MaxAdView xmlns:maxads="http://schemas.applovin.com/android/1.0"
+            maxads:adUnitId="f239ed2aa58964e2"
+            android:id="@+id/bannerAdView"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="90dp"/>
+    </LinearLayout>
+
+    <include layout="@layout/loading_ani_and_ad_view_merge" />
+
+    <include layout="@layout/bottom_ad_banner" />
+
+    <include layout="@layout/voice_input_overlay" />
+
+    <LinearLayout
+        android:id="@+id/ll_upgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="bottom">
+
+        <FrameLayout
+            android:id="@+id/fl_admob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</FrameLayout>

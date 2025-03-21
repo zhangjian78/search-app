@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:amazon="http://schemas.amazon.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- This permission ensures that no other application can intercept your ADM messages. -->
+    <permission
+        android:name="${applicationId}.permission.RECEIVE_ADM_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.RECEIVE_ADM_MESSAGE" />
+
+    <!-- This permission allows your app access to receive push notifications from ADM. -->
+    <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
+
+    <!-- ADM uses WAKE_LOCK to keep the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <application android:usesCleartextTraffic="true">
+
+        <amazon:enable-feature
+            android:name="com.amazon.device.messaging"
+            android:required="false"/>
+
+        <!-- You must replace the names in the service and receiver tags -->
+        <!-- with names that are appropriate to your package. -->
+        <service
+            android:name="amz_adm.MyADMMessageHandler"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+
+        <!-- This is needed for devices with older ADM versions -->
+        <service
+            android:name="amz_adm.MyADMLegacyMessageHandler"
+            android:exported="false" />
+
+        <receiver
+            android:exported="true"
+            android:name="amz_adm.MyReceiver"
+            android:permission="com.amazon.device.messaging.permission.SEND" ><!-- This permission ensures that only ADM can send your app registration broadcasts. -->
+
+            <!-- To interact with ADM, your app must listen for the following intents. -->
+            <intent-filter>
+                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+
+                <!-- Replace the name in the category tag with your app's package name. -->
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.amazon.device.drm.ResponseReceiver"
+            android:permission="com.amazon.drm.Permission.NOTIFY"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.amazon.drm.NOTIFY" />
+            </intent-filter>
+        </receiver>
+
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
+    </application>
+
+</manifest>
