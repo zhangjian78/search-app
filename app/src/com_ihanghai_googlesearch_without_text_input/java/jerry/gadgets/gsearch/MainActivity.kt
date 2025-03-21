@@ -27,7 +27,6 @@ import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -47,7 +46,6 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
-import com.github.ybq.android.spinkit.sprite.SpriteContainer
 import com.github.ybq.android.spinkit.style.Wave
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.database.FirebaseDatabase
@@ -60,14 +58,12 @@ import jerry.gadgets.PopWebviewActionBeginLoadingPage
 import jerry.gadgets.R
 import jerry.gadgets.WvNewWindowRequestHandler
 import jerry.gadgets.ad.Admob
-import org.vosk.Model
-import org.vosk.android.RecognitionListener
-import org.vosk.android.SpeechService
+import jerry.gadgets.isLikelyTelevision
 import java.io.ByteArrayInputStream
 import java.util.concurrent.Executors
 
 
-class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
+class MainActivity : BaseActivity(), MaxAdViewAdListener {
 
     override val logger = Logger("TabGS")
     private var versionName = "1.0"
@@ -104,47 +100,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
         override fun onServiceDisconnected(arg0: ComponentName) {
             mBound = false
         }
-    }
-
-    /**
-     * Begin of Vosk Integration
-     */
-    internal var mVoskModel: Model? = null
-    internal var mVoskModelLoading = false
-    internal var mVoskEngineException: Exception? = null
-    internal var mVoskSpeechService: SpeechService? = null
-    internal var mVoskResultView: EditText? = null
-
-    internal var mVoiceInputAni: SpriteContainer? = null
-
-    override fun onPartialResult(hypothesis: String?) {
-        logger.debug { "vosk partial result: $hypothesis" }
-    }
-
-    override fun onResult(hypothesis: String?) {
-        if (hypothesis == null) {
-            return
-        }
-        val t = extractVoskEngineOutputText(hypothesis)
-        mVoskResultView?.setText(t)
-    }
-
-    override fun onFinalResult(hypothesis: String?) {
-        logger.debug { "vosk final result: $hypothesis" }
-        if (hypothesis == null) {
-            return
-        }
-        val t = extractVoskEngineOutputText(hypothesis)
-        mVoskResultView?.setText(t)
-    }
-
-    override fun onError(exception: Exception?) {
-        logger.debug { "vosk engine exception: $exception" }
-        mVoskResultView?.setText(exception.toString())
-    }
-
-    override fun onTimeout() {
-        logger.debug { "vosk engine timeout." }
     }
 
     /**
@@ -196,14 +151,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
         //noinspection deprecation
         waveDrawable.setColor(resources.getColor(R.color.amzYellow_D1))
         voiceInput.setCompoundDrawables(waveDrawable, null, null, null)
-
-        mVoskResultView = voiceInput
-        mVoiceInputAni = waveDrawable
-
-        val voiceDoneBtn = findViewById<Button>(R.id.voice_input_done_btn)
-        voiceDoneBtn.setOnClickListener{
-            hideVoiceInputOverlay(true)
-        }
 
         cursor = layoutInflater.inflate(R.layout.cursor, null) as ImageView?
         val lp = FrameLayout.LayoutParams(26.dpToPx, 26.dpToPx)
@@ -292,8 +239,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
             unbindService(connection)
             mBound = false
         }
-
-        hideVoiceInputOverlay(false)
     }
 
 
@@ -504,23 +449,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
         }
     }
 
-
-    @JavascriptInterface
-    fun openVoiceInputFromJs() {
-        handler.post{
-            showVoiceInputOverlay()
-        }
-    }
-
-    @JavascriptInterface
-    fun checkVoiceInputReadyState() : String {
-        if (mVoskModel != null) {
-            return "ready"
-        } else {
-            return "not-ready"
-        }
-    }
-
     @JavascriptInterface
     fun enableDownload(b: String) {
         logger.debug { "enable download exec..." }
@@ -592,14 +520,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
             if (it.isNotEmpty()) {
                 saveSearch(it)
             }
-        }
-
-        if (mVoskModel == null) {
-            handler.postDelayed({
-                if (mVoskModel == null) {
-                    initVoskEngine()
-                }
-            }, 2500L)
         }
     }
 
@@ -677,14 +597,6 @@ class MainActivity : BaseActivity(), RecognitionListener, MaxAdViewAdListener {
                 origin: WebView,
                 hasAndroidPermission: Boolean
             ): Boolean {
-
-                logger.debug { "microphone access requested from: ${origin.url}" }
-                logger.debug { "microphone access system permission got? $hasAndroidPermission" }
-
-                val url = origin.url
-                if ((url != null) && (url.indexOf("google") > 0)) {
-                    showVoiceInputOverlay()
-                }
                 return false
             }
 

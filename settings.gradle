@@ -1,2 +1,2 @@
-include ':app', ':vosk-models'
+include ':app'
 rootProject.name = "search-app"
