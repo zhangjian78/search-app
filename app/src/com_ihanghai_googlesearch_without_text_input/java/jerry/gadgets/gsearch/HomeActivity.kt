@@ -45,17 +45,12 @@ class HomeActivity : AppCompatActivity() {
     }
     private var isBackPressedOnce = false
 
-    val mainHandler by lazy { buildMainHandler() }
+    private val mainHandler by lazy { buildMainHandler() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if (Build.VERSION.SDK_INT >= 30) { // removal of status and navigation bar
-            binding.root.windowInsetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-        }
-
-        // startActivity(Intent(this, MainActivity::class.java))
         binding.etSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
                 hideKeyboardIfShown(binding.etSearch)
@@ -64,6 +59,7 @@ class HomeActivity : AppCompatActivity() {
                     return@setOnEditorActionListener true
                 }
 
+                binding.etSearch.setSelection(binding.etSearch.text.length)
                 startSearch(keyword)
                 return@setOnEditorActionListener true
             }
@@ -79,6 +75,15 @@ class HomeActivity : AppCompatActivity() {
             p.putInt("POP_AD", times)
             p.apply()
             startActivity(Intent(this, AdScreen::class.java))
+        } else {
+            if (isLikelyTelevision()) {
+                mainHandler.postDelayed({
+                    val view = binding.etSearch
+                    val location = IntArray(2)
+                    view.getLocationOnScreen(location)
+                    performClick(view, location[0] + view.width / 2f, location[1] + view.height / 2f)
+                }, 500L)
+            }
         }
     }
 
@@ -101,14 +106,14 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (isLikelyTelevision()) {
-            mainHandler.postDelayed({
-                val view = binding.etSearch
-                val location = IntArray(2)
-                view.getLocationOnScreen(location)
-                performClick(view, location[0] + view.width / 2f, location[1] + view.height / 2f)
-            }, 500L)
-        }
+        // if (isLikelyTelevision()) {
+        //     mainHandler.postDelayed({
+        //         val view = binding.etSearch
+        //         val location = IntArray(2)
+        //         view.getLocationOnScreen(location)
+        //         performClick(view, location[0] + view.width / 2f, location[1] + view.height / 2f)
+        //     }, 500L)
+        // }
     }
 
     private fun performClick(view: View, x: Float, y: Float) {
@@ -164,17 +169,11 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.back_hint), Toast.LENGTH_SHORT).show()
             mainHandler.postDelayed({ isBackPressedOnce = false }, 2000L)
         }
-
-
     }
 
     private fun isLikelyTelevision(): Boolean {
         return when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                    packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK) -> true
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP &&
-                    @Suppress("DEPRECATION")
-                    packageManager.hasSystemFeature(PackageManager.FEATURE_TELEVISION) -> true
+            packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK) -> true
             packageManager.hasSystemFeature(PackageManager.FEATURE_USB_HOST) &&
                     packageManager.hasSystemFeature(PackageManager.FEATURE_ETHERNET) &&
                     !packageManager.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN) -> true
