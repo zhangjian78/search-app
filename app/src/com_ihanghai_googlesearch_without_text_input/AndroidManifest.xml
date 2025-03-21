@@ -26,6 +26,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".gsearch.HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".gsearch.AdScreen"
             android:exported="false" />
         <activity
@@ -35,11 +44,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="sensor"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <!-- to fix "Webview is Vulnerable to Cross app" -->
             <meta-data
                 android:name="android.webkit.WebView.EnableSafeBrowsing"

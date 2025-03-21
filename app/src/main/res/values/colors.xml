@@ -16,6 +16,7 @@
 
 
     <color name="gray">#FF666666</color>
+    <color name="dark">#FF333333</color>
     <color name="menu_bg_color">#008e53</color>
     <color name="null_color">#00000000</color>
 </resources>

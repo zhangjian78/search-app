@@ -118,6 +118,9 @@ class MainActivity : BaseActivity(), MaxAdViewAdListener {
         } else {
             AppSettings.startPage = "file:///android_asset/start/index.html"
         }
+        intent.getStringExtra("url")?.let {
+            AppSettings.startPage = it
+        }
 
         super.onCreate(savedInstanceState)
 
@@ -161,44 +164,6 @@ class MainActivity : BaseActivity(), MaxAdViewAdListener {
         if (isTv) {
             cursor?.visibility = View.VISIBLE
             popKeyboard = true
-        }
-
-        // if (isTv) {
-        //     if (mWvLoadingAniAndAdViewMgr.mEnableAdMode) {
-        //         mWvLoadingAniAndAdViewMgr.enableAdModeForNextBoot(true)
-        //     }
-        // } else {
-        //     if (mWvLoadingAniAndAdViewMgr.mEnableAdMode) {
-        //         mWvLoadingAniAndAdViewMgr.enableAdModeForNextBoot(true)
-        //     } else {
-        //         // val adBanner = findViewById<FrameLayout>(R.id.fl_admob)
-        //         // admob = Admob(this)
-        //         // admob?.loadBanner(adBanner) {
-        //         //     findViewById<LinearLayout>(R.id.ll_upgrade).visibility = View.VISIBLE
-        //         // }
-        //     }
-        // }
-
-        // 不联网加载弹窗
-        // if (mWvLoadingAniAndAdViewMgr.mEnableAdMode) {
-        //     mWvLoadingAniAndAdViewMgr.enableAdModeForNextBoot(true)
-        // } else {
-        //     // val adBanner = findViewById<FrameLayout>(R.id.fl_admob)
-        //     // admob = Admob(this)
-        //     // admob?.loadBanner(adBanner) {
-        //     //     findViewById<LinearLayout>(R.id.ll_upgrade).visibility = View.VISIBLE
-        //     // }
-        // }
-
-        val sharedPreferences = getSharedPreferences("ADS", Context.MODE_PRIVATE)
-        var times = sharedPreferences.getInt("POP_AD", 4)
-
-        if (times > 0 && !OurApps.checkAppInstalled(this, "com.vtube.protube")) {
-            times--
-            val p = getSharedPreferences("ADS", Context.MODE_PRIVATE).edit()
-            p.putInt("POP_AD", times)
-            p.apply()
-            startActivity(Intent(this, AdScreen::class.java))
         }
     }
 
